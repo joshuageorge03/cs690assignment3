@@ -1,1 +1,4 @@
 evidence_id,requirement_id,acceptance_criterion_id,test_name
+E-2;Q-1,R-1,AC-1,test_ac1_reservation_becomes_releasable_at_grace_period
+E-5,R-2,AC-2,test_ac2_checked_in_reservation_remains_active_after_grace_period
+E-3;E-4,R-3,AC-3,test_ac3_waitlist_cannot_receive_unprepared_kit

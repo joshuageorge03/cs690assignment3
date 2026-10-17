@@ -14,3 +14,36 @@ name or an adjacent comment, for example: def test_ac1_<what_it_checks>().
 Put any policy value, such as the grace period, in a named constant marked as
 a configured value, as in the at-risk example from the Week 5 lecture.
 """
+
+from reference import can_offer_to_waitlist, reservation_disposition
+
+GRACE_MINUTES = 10  # configured value
+
+
+def test_ac1_reservation_becomes_releasable_at_grace_period():
+    result = reservation_disposition(
+        minutes_after_start=GRACE_MINUTES,
+        grace_minutes=GRACE_MINUTES,
+        checked_in=False,
+    )
+
+    assert result == "releasable"
+
+
+def test_ac2_checked_in_reservation_remains_active_after_grace_period():
+    result = reservation_disposition(
+        minutes_after_start=GRACE_MINUTES + 5,
+        grace_minutes=GRACE_MINUTES,
+        checked_in=True,
+    )
+
+    assert result == "active"
+
+
+def test_ac3_waitlist_cannot_receive_unprepared_kit():
+    result = can_offer_to_waitlist(
+        disposition="releasable",
+        preparation_complete=False,
+    )
+
+    assert result is False
